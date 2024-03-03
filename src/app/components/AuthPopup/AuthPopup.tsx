@@ -5,13 +5,24 @@ import Input from '@mui/joy/Input';
 import Image from 'next/image'
 import Select from '@mui/joy/Select';
 import Option from '@mui/joy/Option';
-const Authpopup = () => {
+import { AiFillDelete, AiOutlineClose } from 'react-icons/ai'
+
+interface AuthPopupProps{
+    setShowpopup:React.Dispatch<React.SetStateAction<boolean>>;
+}
+const Authpopup:React.FC<AuthPopupProps> = ({setShowpopup}) => {
   
   const [showsignup,setShowsignup] = React.useState<boolean>(false)
   const handleLogin =()=>{}
   const handleSignup =()=>{}
   return (
     <div className='popup'>
+        <button className='close'
+        onClick={()=>{
+            setShowpopup(false)
+        }}
+        
+        ><AiOutlineClose /></button>
       {
         showsignup?(
             
@@ -51,7 +62,7 @@ const Authpopup = () => {
                         handleLogin()
                     }}>SignUp</button>
                     </form>
-                    <div>Already a member? <button onClick={
+                    <div className='form_else'>Already a member? <button onClick={
                     () => {
                         setShowsignup(false)
                     }
@@ -76,7 +87,7 @@ const Authpopup = () => {
                         handleLogin()
                     }}>LogIn</button>
                     </form>
-                    <div className='otherwise'>Don't have an account?  <button onClick={
+                    <div className='form_else1'>Don't have an account?  <button onClick={
                     () => {
                         setShowsignup(true)
                     }

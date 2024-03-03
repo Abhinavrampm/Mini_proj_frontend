@@ -29,7 +29,7 @@ const Navbar = () => {
           }>LogIn</button>
         }
         {
-          showpopup && <Authpopup /> //if showpopup is true ,then goto AuthPopup
+          showpopup && <Authpopup setShowpopup={setShowpopup}/> //if showpopup is true ,then goto AuthPopup,setShowpop as a propery for Authpopup
         }
     </nav>
   )

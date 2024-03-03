@@ -98,7 +98,10 @@ function simplifyFraction(numerator: number, denominator: number): [number, numb
            }
             </span>
            </CircularProgress>
-           <button>Show report<AiOutlineEye /></button>
+           <button
+           onClick={()=>{
+            window.location.href=`/report/${item.name}`
+           }}>Show report<AiOutlineEye /></button>
         </div> 
 
         )
