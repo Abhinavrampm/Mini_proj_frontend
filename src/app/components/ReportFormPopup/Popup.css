@@ -16,7 +16,6 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
-    background-color: white;
     width: 500px;
     max-height: 80%;
     padding: 20px;
@@ -51,11 +50,11 @@ overflow: scroll;
     font-weight: 500;
     width: 100%;
     text-align: left;
+   color: black;
 }
 
 .popupbox .items .item button {
     background-color: var(--col1);
-    color: white;
     border: none;
     border-radius: 5px;
     padding: 5px 10px;

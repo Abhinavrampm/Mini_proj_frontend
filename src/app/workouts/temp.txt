@@ -23,12 +23,14 @@
 .workout__exercise--reverse {
     flex-direction: row-reverse;
 }
+.workout_exercise_image { width: 50%; height: auto; /* You can adjust this value based on your preferred size */  }
 .workout__exercise__content {
     display: flex;
     flex-direction: column;
     text-align: left;
     gap: 10px;
     margin-left: 20px;
+    background-color: var(--col1);
 }
 
 
@@ -47,7 +49,7 @@
 .workout__exercise__content span{
     font-size: 20px;
     font-weight: 300;
-    color: #ffffff;
+    color: white;
     background-color: var(--col1);
     padding: 5px 20px;
     border-radius: 35px;
