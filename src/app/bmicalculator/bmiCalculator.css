@@ -1,0 +1,72 @@
+.bmiCalculator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* Center content vertically */
+    padding: 20px;
+    border-radius: 10px;
+    background-color: white;
+    color: black;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    width: 100vw; /* Use full viewport width */
+    height: 100vh; /* Use full viewport height */
+  }
+  
+  .bmiCalculator h2 {
+    font-size: 24px;
+    font-weight: 500;
+    margin-bottom: 20px;
+  }
+  
+  .inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+  }
+  
+  .inputs label {
+    font-size: 16px;
+  }
+  
+  .inputs input {
+    width: 50%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  
+  .button {
+   margin-top:20px;
+    margin-bottom: 20px; /* Adjust margin as needed */
+  }
+  
+  .button button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+  }
+  
+  .button button:hover {
+    background-color: #0056b3;
+  }
+  
+  .bmiResult {
+    text-align: center;
+  }
+  
+  .bmiResult p {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  .bmiResult p.message {
+    color: #333;
+  }
+  

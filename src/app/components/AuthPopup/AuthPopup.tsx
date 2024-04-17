@@ -15,6 +15,8 @@ import { StaticDatePicker } from '@mui/x-date-pickers/StaticDatePicker';
 import { DesktopDatePicker } from '@mui/x-date-pickers';
 import { ToastContainer, toast } from 'react-toastify';
 
+
+
 interface AuthPopupProps{
     setShowpopup:React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -50,79 +52,29 @@ const [loginformData, setLoginFormData] = React.useState({
     email: '',
     password: '',
 })
+const handleAdminLogin =  () => {
+        console.log(loginformData);
+        fetch(process.env.NEXT_PUBLIC_BACKEND_API + '/admin/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(loginformData),
+            credentials: 'include'
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data)
 
-
-//   router.post('/register', async (req, res, next) => {
-//     console.log(req.body);
-//     try {
-//         const { name, email, password, weightInKg, heightInCm, gender, dob, goal, activityLevel } = req.body;
-//         const existingUser = await User.findOne({ email: email });
-
-//         if (existingUser) {
-//             return res.status(409).json(createResponse(false, 'Email already exists'));
-//         }
-//         const newUser = new User({
-//             name,
-//             password,
-//             email,
-//             weight: [
-//                 {
-//                     weight: weightInKg,
-//                     unit: "kg",
-//                     date: Date.now()
-//                 }
-//             ],
-//             height: [
-//                 {
-//                     height: heightInCm,
-//                     date: Date.now(),
-//                     unit: "cm"
-//                 }
-//             ],
-//             gender,
-//             dob,
-//             goal,
-//             activityLevel
-//         });
-//         await newUser.save(); // Await the save operation
-
-//         res.status(201).json(createResponse(true, 'User registered successfully'));
-
-//     }
-//     catch (err) {
-//         next(err);
-//     }
-// })
-
-// router.post('/login', async (req, res, next) => {
-//     try {
-//         const { email, password } = req.body;
-//         const user = await User.findOne({ email });
-//         if (!user) {
-//             return res.status(400).json(createResponse(false, 'Invalid credentials'));
-//         }
-//         const isMatch = await bcrypt.compare(password, user.password);
-//         if (!isMatch) {
-//             return res.status(400).json(createResponse(false, 'Invalid credentials'));
-//         }
-
-//         const authToken = jwt.sign({ userId: user._id }, process.env.JWT_SECRET_KEY, { expiresIn: '50m' });
-//         const refreshToken = jwt.sign({ userId: user._id }, process.env.JWT_REFRESH_SECRET_KEY, { expiresIn: '100m' });
-
-//         res.cookie('authToken', authToken, { httpOnly: true });
-//         res.cookie('refreshToken', refreshToken, { httpOnly: true });
-//         res.status(200).json(createResponse(true, 'Login successful', {
-//             authToken,
-//             refreshToken
-//         }));
-//     }
-//     catch (err) {
-//         next(err);
-//     }
-// })
-
-
-
+            if(data.ok){
+                toast.success(data.message)
+                console.log("Admin authenticated successfully")
+                window.location.href = '/adminPage/addWorkout'
+                setShowpopup(false)
+               
+            }
+        })
+};
 
 
 const handleLogin = () => {
@@ -144,6 +96,8 @@ const handleLogin = () => {
                 toast.success(data.message)
 
                 setShowpopup(false)
+                window.location.reload();
+               
             }
             else {
                 toast.error(data.message)
@@ -171,10 +125,11 @@ const handleSignup = ()=>{
         .then(data => {
             console.log(data)
 
-            if (data.ok) {
+            if (data.ok) {                      //indicates successful login
                 toast.success(data.message)
 
                 setShowsignup(false)
+                window.location.reload();
             }
             else {
                 toast.error(data.message)
@@ -399,10 +354,15 @@ const handleSignup = ()=>{
                                     }}
                                 />
                     <button
-                    onClick={(e)=>{
-                        e.preventDefault()
-                        handleLogin()
-                    }}>LogIn</button>
+                    onClick={(e) => {
+                        e.preventDefault();
+                        if (loginformData.email.includes('.admin')) {
+                            handleAdminLogin();
+                        } else {
+                            handleLogin();
+                        }
+                    }}
+                    >LogIn</button>
                     </form>
                     <div className='form_else1'>Don't have an account?  <button onClick={
                     () => {

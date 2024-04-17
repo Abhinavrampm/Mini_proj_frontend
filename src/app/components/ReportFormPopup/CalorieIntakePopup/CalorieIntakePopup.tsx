@@ -56,6 +56,8 @@ const saveCalorieIntake = async() =>{
       if(data.ok){
         toast.success('Calorie intake added successfully')
         getCalorieIntake()    //to calculate the entire calorie consumed that day
+        window.location.reload();
+               
       }
       else{
         toast.error('Error in adding calorie intake')

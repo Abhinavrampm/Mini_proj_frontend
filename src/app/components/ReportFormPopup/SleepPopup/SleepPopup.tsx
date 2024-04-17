@@ -1,0 +1,197 @@
+import React from 'react'
+import '../popup.css'
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import { AiFillDelete, AiOutlineClose } from 'react-icons/ai'
+//import DatePicker from "react-horizontal-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { TimePicker } from '@mui/x-date-pickers/TimePicker';
+import { toast } from "react-toastify"
+import dayjs, { Dayjs } from 'dayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker'
+
+
+interface SleepPopupProps {
+  setShowSleepPopup: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const SleepPopup: React.FC<SleepPopupProps> = ({ setShowSleepPopup }) => {
+  const [date, setDate] = React.useState(dayjs(new Date()));
+  const [time, setTime] = React.useState(dayjs(new Date()));
+  const [sleepIntake , setSleepIntake] = React.useState<any>({
+    date:'',
+    durationInHrs:''
+ })
+
+ const [items,setItems] = React.useState<any>([]) //previously stored sleep data
+
+
+  const saveSleepEntry = async () => {
+    console.log('Sleep intake date:', sleepIntake.date);
+    console.log('Sleep intake duration:', sleepIntake.durationInHrs);
+
+    let tempdate = date.format('YYYY-MM-DD')
+    let temptime = time.format('HH:mm:ss')    //get time and merge it with the date when a food is eaten
+    let tempdatetime = tempdate + ' ' + temptime //to merge date and time 
+    let finaldatetime = new Date(tempdatetime) //convert this to date object
+
+    console.log(finaldatetime)
+
+    fetch(process.env.NEXT_PUBLIC_BACKEND_API + '/sleeptrack/addsleepentry', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+            
+        },
+        credentials: 'include',
+        body: JSON.stringify({
+          date:finaldatetime,
+          durationInHrs : sleepIntake.durationInHrs
+        })
+        
+    })
+      .then(res=>res.json())
+      .then(data => {
+        if(data.ok){
+          toast.success('Sleep Data added successfully')
+          getSleep() 
+          window.location.reload();   
+        }
+        else{
+          toast.error('Error in adding sleep data')
+        }
+      })
+      .catch((err) => {
+        toast.error("Error in adding catch")
+        console.log(err)
+      })
+    };
+
+    const getSleep = async() =>{
+        setItems([])        //hook initialized as empty
+        fetch(process.env.NEXT_PUBLIC_BACKEND_API + '/sleeptrack/getsleepbydate', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json'
+              
+          },
+          credentials: 'include',
+          body: JSON.stringify({
+            date:date
+          })
+          
+      })
+      .then(res=>res.json())
+      .then(data => {
+        if(data.ok){
+         console.log(data.data,'Sleep track data for date')
+          setItems(data.data)  
+        }
+        else{
+          toast.error('Error in adding sleepdata')
+        }
+      })
+      .catch((err) => {
+        toast.error("Error in adding catch")
+        console.log(err)
+      })
+ }
+ const deleteSleepData = async(item:any) =>{
+    fetch(process.env.NEXT_PUBLIC_BACKEND_API + '/sleeptrack/deletesleepentry', {
+      method: 'DELETE',
+      headers: {
+          'Content-Type': 'application/json'
+          
+      },
+      credentials: 'include',
+      body: JSON.stringify({
+        date:item.date
+      })
+  })
+  .then(res=>res.json())
+  .then(data => {
+    if(data.ok){
+     console.log('Sleep data deleted')
+     toast.success('Sleep data deleted')
+      getSleep();
+    }
+    else{
+      toast.error('Error in deleting sleep data')
+    }
+  })
+  .catch((err) => {
+    toast.error("Error in deleting ")
+    console.log(err)
+  })
+  }
+   
+  React.useEffect(()=>{
+    getSleep()
+  },[date])         
+   
+  const selectedDay = (val:any) => {
+    setDate(val)
+  };  
+
+  
+
+  return (
+    <div className='popupout'>
+    <div className='popupbox'>
+      <button className='close'
+       onClick={()=>{
+        setShowSleepPopup(false)
+       }}>
+          <AiOutlineClose />
+      </button>
+       <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <DatePicker
+        label="Select Date"
+        value={date}
+        onChange={(newValue:any)=>{
+          selectedDay(newValue);
+        }} />
+       </LocalizationProvider>
+       <TextField id="outlined-basic"
+       label='duration in hrs'
+       variant='outlined'
+       color='warning'
+       onChange={(e)=>{
+        setSleepIntake({ ...sleepIntake,durationInHrs:e.target.value})
+       }} />
+
+     <Button variant='contained'
+     color='warning'
+     onClick={saveSleepEntry}>
+        Save
+     </Button>
+     <div className='hrline'></div>
+     <div className='items'>
+      {
+        items.map((item:any) => {
+          return (
+            <div  className='item'>
+              <h3>{item.date}</h3>
+              <h3>{item.durationInHrs} </h3>
+              <button
+              onClick={
+                () => {
+                  deleteSleepData(item);
+                }
+              }>< AiFillDelete/> </button>
+            </div>
+          )
+        })
+      }
+      
+      </div>  
+    </div>
+</div>
+  )
+
+};
+
+
+export default SleepPopup;
