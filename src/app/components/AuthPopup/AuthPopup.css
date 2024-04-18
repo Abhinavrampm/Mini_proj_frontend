@@ -1,91 +1,130 @@
-.popup{
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items:center;
-    background-color: rgba(0, 0, 0, 0.753);
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  backdrop-filter: blur(5px);
+  border-radius: 10px;
+  overflow: hidden;
 }
 
-.authform{
-    display: flex;
-    /* align-items: center; */
-    background-color: black;
-    width: 50%;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.354);
-    height: 70%;
+.popup.close {
+  color: var(--col1);
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 50%;
+  font-size: 20px;
+  cursor: pointer;
+  line-height: 0;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  transition: 0.3s;
+  background-color: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.authform .left{
-    width: 50%;
-    /* height: 100%; */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-
+.popup.authform {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
 
-.authform .left img{
-    width: 50%;
-    object-fit:contain;
+.popup.authform h1 {
+  font-size: 24px;
+  font-weight: 500;
+  color: var(--col1);
 }
 
-.authform .right{
-    /* background-color: var(--col1); */
-    width: 50%;
-    height: 100%;
-    padding: 20px;
-    overflow: scroll;
+.popup.authform.form_else {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
 }
 
-.authform .right h1{
-    color: var(--col1);
-    font-size: 20px;
-    font-weight: 300;
-    text-align: center;
-    margin: 10px 0px;
+.popup.authform.form_else button {
+  background-color: var(--col1);
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: 0.3s;
 }
 
-.authform .right form{
-    gap: 10px;
-    display: flex;
-    flex-direction: column;
+.popup.authform.form_else button:hover {
+  background-color: var(--col2);
 }
 
-
-.authform .form_input_leftright{
-    display: flex;
-    gap: 10px;
+.popup.authform.form_else1 button {
+  background-color: var(--col1);
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: 0.3s;
 }
 
+.popup.authform.form_else1 button:hover {
+  background-color: var(--col2);
+}
 
-.authform .form_else{
-    display: flex;
-    gap: 20px;
-    margin-top: 20px;
-  margin-right: 20px;
-  margin-bottom: 20px;
-  margin-left: 10px;
+.popup.authform.input {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: rgba(0, 0, 0, 0.05);
+  font-size: 16px;
+  transition: 0.3s;
 }
-.authform .form_else1{
-    font-size: medium;
-    display: flex;
-    gap: 20px;
-    margin-top: 20px;
-  margin-right: 10px;
-  margin-bottom: 20px;
-  margin-left: 10px;
+
+.popup.authform.input:focus {
+  background-color: rgba(0, 0, 0, 0.1);
 }
-.popup .close{
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    border-radius: 50%;
-    line-height: 0;
+
+.popup.authform.select {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: rgba(0, 0, 0, 0.05);
+  font-size: 16px;
+  transition: 0.3s;
+}
+
+.popup.authform.select:focus {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.popup.authform.select option {
+  font-size: 16px;
+}
+
+.popup.authform.button {
+  background-color: var(--col1);
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.popup.authform.button:hover {
+  background-color: var(--col2);
 }

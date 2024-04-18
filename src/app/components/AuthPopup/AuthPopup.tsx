@@ -1,11 +1,11 @@
 import React from 'react'
-import './AuthPopup.css'
+import './Popup.css'
 import logo from './logo.png'
 import Input from '@mui/joy/Input';
 import Image from 'next/image'
 import Select from '@mui/joy/Select';
 import Option from '@mui/joy/Option';
-import { AiFillDelete, AiOutlineClose } from 'react-icons/ai'
+import {  AiOutlineClose } from 'react-icons/ai'
 import dayjs from 'dayjs';
 
 
@@ -35,7 +35,7 @@ interface SignupFormData {
 
 const Authpopup:React.FC<AuthPopupProps> = ({setShowpopup}) => {
   
-  const [showsignup,setShowsignup] = React.useState<boolean>(false)
+    const [showsignup, setShowsignup] = React.useState<boolean>(false);
   const [signupformData, setSignupFormData] = React.useState<SignupFormData>({
     name: '',
     email: '',
@@ -208,11 +208,22 @@ const handleSignup = ()=>{
                                 />
 
                                 <Select
-                                   
+                                   className='my-select'
                                     placeholder="Activity Level"
                                     size="lg"
                                     variant="solid"
-
+                                    sx={{
+                                        width: '100%',
+                                        padding: '10px',
+                                        border: 'none',
+                                        borderRadius: '5px',
+                                        backgroundColor: 'rgba(0, 0, 0, 0.05)',
+                                        fontSize: '16px',
+                                        transition: '0.3s',
+                                        '&:focus': {
+                                          backgroundColor: 'rgba(0, 0, 0, 0.1)',
+                                        },
+                                      }}
                                     onChange={(
                                         event: React.SyntheticEvent | null,                  //onchange method different for MUI
                                         newValue: string | null,
@@ -231,7 +242,7 @@ const handleSignup = ()=>{
                                 </Select>
 
                                 <Select
-                                   
+                                   className='my-select'
                                     placeholder="Goal"
                                     size="lg"
                                     variant="solid"
@@ -252,7 +263,7 @@ const handleSignup = ()=>{
                                 </Select>
 
                                 <Select
-                                    
+                                    className='my-select'
                                     placeholder="Gender"
                                     size="lg"
                                     variant="solid"
@@ -327,7 +338,7 @@ const handleSignup = ()=>{
                     <h1>Login to FitLife!</h1>
                     <form action="">
                     <Input
-                                    color="warning"
+                                    
                                     placeholder="email"
                                     size="lg"
                                     variant="solid"
@@ -340,12 +351,12 @@ const handleSignup = ()=>{
                                 />
 
                                 <Input
-                                    color="warning"
+                                    
                                     placeholder="password"
                                     size="lg"
                                     variant="solid"
                                     type='password'
-
+                                    
                                     onChange={(e) => {
                                         setLoginFormData({
                                             ...loginformData,

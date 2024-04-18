@@ -176,8 +176,8 @@ const WorkoutPopup: React.FC<WorkoutPopupProps> = ({ setShowWorkoutPopup }) => {
      onClick={saveWorkoutEntry}>
         Save
      </Button>
-     <div className='hrline'></div>
-     <div className='items'>
+     
+      <div className='items'>
       {
         items.map((item:any) => {
           return (

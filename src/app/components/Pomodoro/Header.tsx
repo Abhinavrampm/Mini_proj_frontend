@@ -11,14 +11,17 @@ export const Header = () => {
   return (
     <Box component='header'>
       <Typography variant='h4' component='h1' color={red[600]}>
-        Pomodoro Timer
+        Meditation Timer
       </Typography>
       <Typography variant='subtitle1' color={red[300]}>
         {mode === 'work'
-          ? `Focus on your work and don't get distracted for only ${workLength} ${
+          ? `Find a quiet space, sit comfortably, and focus on your breath for ${workLength} ${
               workLength > 1 ? 'minutes' : 'minute'
-            }`
-          : `It's time for well-deserved ${breakLength}-minute break`}
+            }.`
+          : `Take this ${breakLength}-minute break to relax and recharge.`}
+      </Typography>
+      <Typography variant='body2' color={red[300]} sx={{ mt: 1 }}>
+        Use headphones for the best meditation experience.
       </Typography>
     </Box>
   );

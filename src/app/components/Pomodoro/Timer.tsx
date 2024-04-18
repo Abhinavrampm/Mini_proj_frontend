@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Pause, PlayArrow, RestartAlt } from '@mui/icons-material';
 import { Box, Stack, Typography } from '@mui/material';
 import { red } from '@mui/material/colors';
@@ -11,9 +11,14 @@ import { formatTime } from './utils/formatTime';
 import { Button } from './Button';
 import { Settings } from './Settings';
 
+const backgroundMusicSrc = '/backgroundMusic.mp3';
+const bellSoundSrc = '/bell.mp3';
+
 export const Timer = () => {
   const { isRunning, mode, timeLeft, changeMode, countDown, resetTimer, toggleTimer } =
     useTimerStore();
+
+  const [backgroundMusic] = useState(new Audio(backgroundMusicSrc));
 
   useEffect(() => {
     let tick: NodeJS.Timeout | null = null;
@@ -22,11 +27,15 @@ export const Timer = () => {
       tick = setInterval(() => {
         countDown();
       }, 1000);
+      backgroundMusic.loop = true;
+      backgroundMusic.play();
+    } else {
+      backgroundMusic.pause();
     }
 
     if (timeLeft === 0) {
-      const audio = new Audio('/beep.mp3');
-      void audio.play();
+      const bellSound = new Audio(bellSoundSrc);
+      bellSound.play();
     } else if (timeLeft < 0) {
       changeMode(mode === 'break' ? 'work' : 'break');
     }
@@ -36,7 +45,7 @@ export const Timer = () => {
         clearInterval(tick);
       }
     };
-  }, [changeMode, countDown, isRunning, mode, timeLeft]);
+  }, [backgroundMusic, changeMode, countDown, isRunning, mode, timeLeft]);
 
   return (
     <>
@@ -64,7 +73,7 @@ export const Timer = () => {
             textTransform: 'capitalize',
           }}
         >
-          {mode}
+          Meditation
         </Typography>
         <Typography component='h1' variant='h3'>
           {formatTime(timeLeft)}
