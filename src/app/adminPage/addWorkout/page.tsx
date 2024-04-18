@@ -135,7 +135,7 @@ const saveWorkout = async() => {
           //   showConfirmButton: false,
           //   timer: 1000
           // });
-          toast.success('Workout creation failed',{
+          toast.success('Workout created successfully',{
             position:'top-center'
           });
 

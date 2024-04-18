@@ -90,7 +90,9 @@ const handleLogout = () => {
     <nav>
          <Image src={logo} alt="Logo" />
          <Link href='/'>Home</Link>
-     {isloggedin && <Link href='bmicalculator'>BMI Calculator</Link>}  
+         {isAdmin && <Link href='/adminPage/addWorkout'>Add Workout</Link>}
+         {isAdmin && <Link href='/adminPage/deleteWorkout'>Delete Workout</Link>}
+     {isloggedin && <Link href='/bmicalculator'>BMI Calculator</Link>}  
        {isloggedin && <Link href="/meditation">Mental Wellbeing</Link>}
         <Link href='/about'>About</Link> 
         {isloggedin && <Link href="/profile"><IoIosBody /></Link>}

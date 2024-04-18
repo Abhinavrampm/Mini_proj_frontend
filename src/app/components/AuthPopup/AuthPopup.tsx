@@ -69,8 +69,8 @@ const handleAdminLogin =  () => {
             if(data.ok){
                 toast.success(data.message)
                 console.log("Admin authenticated successfully")
-                window.location.href = '/adminPage/addWorkout'
                 setShowpopup(false)
+                window.location.reload();
                
             }
         })
